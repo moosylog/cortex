@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ CORTEX  
+# CORTEX  
 **A fast-paced typing game for split keyboards and focused practice**
 
 [![HTML5](https://img.shields.io/badge/HTML5-Strict-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
