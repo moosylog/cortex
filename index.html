@@ -55,7 +55,9 @@
 
         /* --- ESPORTS HEADER & COMBO METER --- */
         header {
-            display: flex; justify-content: space-between; align-items: center;
+            display: grid; 
+            grid-template-columns: 1fr auto 1fr; 
+            align-items: center;
             padding: 15px 40px; 
             background: linear-gradient(to bottom, rgba(4, 6, 10, 0.8) 0%, transparent 100%);
             backdrop-filter: blur(5px);
@@ -65,6 +67,7 @@
         }
         
         .brand { 
+            justify-self: start;
             font-size: 3.5rem; margin: 0; font-weight: 900; letter-spacing: 10px; 
             color: #0d121a; 
             text-shadow: 0 0 5px rgba(0, 229, 255, 0.2); 
@@ -88,15 +91,15 @@
         }
         
         #combo-meter {
-            position: absolute; left: 50%; transform: translateX(-50%);
+            justify-self: center;
             display: flex; flex-direction: column; align-items: center;
             font-family: 'JetBrains Mono', monospace; opacity: 0.2; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        #combo-meter.active { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        #combo-meter.active { opacity: 1; transform: scale(1.1); }
         #combo-val { font-size: 3.5rem; font-weight: 900; color: var(--c-warn); text-shadow: 0 0 30px var(--c-warn); line-height: 1; }
         #combo-lbl { font-size: 1rem; letter-spacing: 6px; color: #fff; text-shadow: 0 0 10px #fff; }
 
-        .hud-stats { display: flex; gap: 20px; font-size: 1.4rem; font-family: 'JetBrains Mono', monospace; align-items: center; }
+        .hud-stats { justify-self: end; display: flex; gap: 20px; font-size: 1.4rem; font-family: 'JetBrains Mono', monospace; align-items: center; }
         .hud-stats div { color: #5c6c80; font-weight: 800; letter-spacing: 2px; display: flex; align-items: center; gap: 8px; }
         .hud-stats span { color: var(--c-left); text-shadow: 0 0 10px var(--c-left); font-weight: 900; opacity: 0.9;}
         #threatVal { color: var(--c-err); text-shadow: 0 0 10px var(--c-err); }
@@ -217,7 +220,6 @@
         }
         .menu-panel h2 { font-size: 4rem; margin: 0 0 20px 0; color: #fff; text-align: center; letter-spacing: 15px; font-weight: 900; text-shadow: 0 0 40px var(--c-left);}
         
-        /* Leaderboard styling */
         .scoreboard-container { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; margin-bottom: 25px; box-shadow: inset 0 10px 30px rgba(0,0,0,0.5);}
         .scoreboard-title { color: #8a9bb3; font-size: 1rem; text-align: center; letter-spacing: 4px; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; font-weight: bold;}
         
@@ -235,12 +237,7 @@
             background: rgba(0,0,0,0.5); color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 16px;
             font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; border-radius: 12px; outline: none; width: 100%; box-sizing: border-box; transition: 0.3s; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
         }
-        /* CSS FIX: Prevents white-on-white text inside dropdown menus */
-        select option {
-            background: #05080c; 
-            color: #fff;
-        }
-        
+        select option { background: #05080c; color: #fff; }
         select:hover, textarea:hover { border-color: var(--c-left); background: rgba(0, 229, 255, 0.05); }
         select:disabled { background: #111; color: #666; border-color: #333; box-shadow: none; cursor: not-allowed; }
         
@@ -272,6 +269,44 @@
         
         @keyframes monitorShake { 0%,100%{transform:translate(0,0);} 20%{transform:translate(-10px, 5px);} 40%{transform:translate(10px, -5px);} 60%{transform:translate(-5px, 5px);} 80%{transform:translate(5px, -5px);} }
         @keyframes empShake { 0%,100%{transform:translate(0,0);} 10%{transform:translate(-25px, 15px) scale(1.02);} 30%{transform:translate(25px, -15px) scale(0.98);} 50%{transform:translate(-15px, 20px) scale(1.05);} 70%{transform:translate(15px, -20px) scale(0.95);} }
+
+        /* ==========================================================================
+           RESPONSIVE LAPTOP SCALING (1366x768 / 1280x720 Support)
+           ========================================================================== */
+        @media (max-width: 1300px) {
+            header { padding: 10px 20px; }
+            .brand { font-size: 2.5rem; letter-spacing: 6px; }
+            #combo-val { font-size: 2.5rem; }
+            .hud-stats { font-size: 1rem; gap: 12px; }
+            .hud-stats div { gap: 4px; }
+            
+            #cockpit { padding: 15px; gap: 15px; }
+            #center-console { width: 280px; padding: 20px; gap: 15px; }
+            .console-label { font-size: 1rem; margin-bottom: 5px; }
+            .bar-wrap { height: 25px; margin-bottom: 5px; }
+            .uplink-title { font-size: 0.85rem; padding-bottom: 5px; margin-bottom: 10px; }
+            #uplink-feed { font-size: 1.2rem; gap: 5px; }
+            
+            .monitor-title { font-size: 0.9rem; padding: 8px 15px; top: 15px; left: 15px; }
+            
+            #synergy-overlay { padding: 40px 80px; }
+            #synergy-title { font-size: 1.8rem; letter-spacing: 8px; margin-bottom: 20px; }
+            #synergy-word { font-size: 5rem !important; letter-spacing: 15px; }
+            #level-announcer { font-size: 3rem; letter-spacing: 10px; }
+        }
+
+        /* Target short screens to prevent vertical menu overflow */
+        @media (max-height: 800px) {
+            .menu-panel { padding: 25px 40px; width: 95%; max-width: 700px; }
+            .menu-panel h2 { font-size: 3rem; margin-bottom: 15px; }
+            .scoreboard-container { padding: 15px; margin-bottom: 15px; }
+            .score-item { margin-bottom: 4px; padding-bottom: 4px; }
+            .menu-grid { gap: 15px; margin-bottom: 15px; }
+            select, button, textarea { padding: 12px; font-size: 1rem; }
+            button.primary { font-size: 1.5rem; padding: 15px; margin-top: 10px; }
+            .cache-reset { margin-top: 15px; }
+            .copyright { bottom: 5px; font-size: 0.7rem; }
+        }
     </style>
 </head>
 <body>
@@ -476,9 +511,7 @@ function loadGameData() {
                 highScores = save.highScores;
             }
 
-            // Restore hardware and layout configs cleanly
             if (save.isCustom) {
-                // IMPORTANT: We load the base shape the custom mapping uses
                 activeHardware = save.baseHardware || 'go60'; 
                 document.getElementById('hwSelect').value = 'custom_hw';
                 document.getElementById('hwSelect').disabled = true;
@@ -514,7 +547,7 @@ function saveGameData() {
     try {
         const payload = {
             highScores: highScores,
-            baseHardware: activeHardware, // Essential for loading the right geometry on reload
+            baseHardware: activeHardware,
             layout: document.getElementById('layoutSelect').value,
             customStr: document.getElementById('customLayoutStr').value,
             isCustom: document.getElementById('hwSelect').value === 'custom_hw'
@@ -525,13 +558,12 @@ function saveGameData() {
 
 function updateGameData() {
     if (score > 0) {
-        // Format sci-fi date: YYYY-MM-DD HH:MM
         const d = new Date();
         const dateStr = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,'0') + "-" + String(d.getDate()).padStart(2,'0') + " " + String(d.getHours()).padStart(2,'0') + ":" + String(d.getMinutes()).padStart(2,'0');
         
         highScores.push({ score: score, level: currentLevel, date: dateStr });
         highScores.sort((a, b) => b.score - a.score);
-        highScores = highScores.slice(0, 5); // Keep Top 5
+        highScores = highScores.slice(0, 5);
     }
     renderScoreboard();
     saveGameData();
@@ -575,7 +607,7 @@ function stopGame() {
     document.getElementById('synergy-overlay').style.display = 'none';
     document.getElementById('menuTitle').innerText = "SYSTEM OFF";
     
-    updateGameData(); // Log the score and save ONLY ONCE when the game truly ends
+    updateGameData(); 
     document.getElementById('menuOverlay').style.display = 'flex';
     document.getElementById('abort-btn').style.display = 'none';
 }
@@ -626,7 +658,6 @@ function handleJsonUpload(e) {
         try {
             const data = JSON.parse(ev.target.result);
             
-            // 1. Properly detect base hardware so geometries load right
             let detectedHw = 'go60';
             if(data.keyboard) { 
                 const kb = data.keyboard.toLowerCase(); 
@@ -650,7 +681,7 @@ function handleJsonUpload(e) {
             document.getElementById('layoutSelect').disabled = true;
             document.getElementById('lblUpload').innerText = `✅ MOERGO LOADED`;
             
-            saveGameData(); // Commit the parsed data
+            saveGameData();
         } catch(err) { alert("Invalid JSON format."); }
     }; reader.readAsText(file); e.target.value = '';
 }
@@ -660,7 +691,6 @@ function buildHandPools() {
     const geo = GEO[activeHardware];
     const layoutStr = document.getElementById('customLayoutStr').value;
     
-    // Safety check just in case cache is malformed
     if(!geo || !layoutStr) {
         factoryReset();
         return;
@@ -1248,8 +1278,6 @@ function processLevelTransition() {
         levelAnnouncer.style.animation = 'none';
         void levelAnnouncer.offsetWidth;
         levelAnnouncer.style.animation = 'levelPop 2s forwards';
-        
-        // Mid-run score saving has been removed to prevent duplicate leaderboard entries!
 
         setTimeout(() => {
             isTransitioning = false;
@@ -1313,6 +1341,10 @@ function updateGame(dt, currentTime) {
     let leftDanger = false;
     let rightDanger = false;
 
+    // --- DYNAMIC LAPTOP SCALING FOR HUD GHOSTING ---
+    let safeZoneX = canvasL.width < 600 ? 200 : 280;
+    let safeZoneY = canvasL.height < 500 ? 60 : 75;
+
     // --- LEFT ENEMIES LOOP ---
     for(let i=leftEnemies.length-1; i>=0; i--) {
         let e = leftEnemies[i]; 
@@ -1329,9 +1361,9 @@ function updateGame(dt, currentTime) {
         let ex = cxL + Math.cos(e.angle)*e.dist; 
         let ey = cyL + Math.sin(e.angle)*e.dist;
         
-        if (ex < 280 && ey < 100) leftDanger = true;
+        if (ex < safeZoneX && ey < safeZoneY + 25) leftDanger = true;
         
-        if(ex < 280 && ey < 75 && !e.bounced) {
+        if(ex < safeZoneX && ey < safeZoneY && !e.bounced) {
             e.bounced = true;
             e.angle += Math.PI / (1.5 + Math.random());
             e.speed = -Math.abs(e.speed) * 1.8;
@@ -1359,9 +1391,9 @@ function updateGame(dt, currentTime) {
 
         e.x += e.vx * (dt/1000); e.y += e.vy * (dt/1000); e.rot += e.rotSpeed * (dt/1000);
         
-        if (e.x < 280 && e.y < 100) rightDanger = true;
+        if (e.x < safeZoneX && e.y < safeZoneY + 25) rightDanger = true;
         
-        if(e.x < 310 && e.y < 75 && !e.bounced) {
+        if(e.x < safeZoneX && e.y < safeZoneY && !e.bounced) {
             e.bounced = true;
             e.vx = Math.abs(e.vx) * 1.5; e.vy = Math.abs(e.vy) * 1.5;
             e.x += 10; e.y += 10;
@@ -1439,13 +1471,20 @@ function drawTextPill(ctx, code, typed, x, y, colorBase, e, time) {
         ctx.scale(s, s);
     }
 
-    ctx.font = "900 40px 'JetBrains Mono', monospace"; 
-    let w = ctx.measureText(code).width; let padX = 22, padY = 14;
+    // --- DYNAMIC FONT SCALING ---
+    let dynFontSize = Math.max(20, Math.min(40, ctx.canvas.width / 12));
+    ctx.font = `900 ${dynFontSize}px 'JetBrains Mono', monospace`; 
+    
+    let w = ctx.measureText(code).width; 
+    let padX = dynFontSize * 0.55; 
+    let padY = dynFontSize * 0.35;
     
     ctx.fillStyle = "rgba(0, 0, 0, 0.95)"; ctx.strokeStyle = isActive ? '#fff' : actualColor; 
     ctx.lineWidth = isActive ? 4 : 2;
     ctx.shadowBlur = isActive ? 20 : 0; ctx.shadowColor = isActive ? '#fff' : 'transparent';
-    ctx.beginPath(); ctx.roundRect(-w/2 - padX, -20 - padY, w + padX*2, 40 + padY*2, 10); ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
+    ctx.beginPath(); 
+    ctx.roundRect(-w/2 - padX, -(dynFontSize/2) - padY, w + padX*2, dynFontSize + padY*2, 10); 
+    ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
 
     if (isActive) {
         ctx.save(); ctx.translate(0, -20); ctx.rotate(time / 300); ctx.strokeStyle = "rgba(255, 255, 255, 0.5)"; ctx.lineWidth = 3;
@@ -1463,7 +1502,7 @@ function drawTextPill(ctx, code, typed, x, y, colorBase, e, time) {
     ctx.fillStyle = "#fff"; 
     
     ctx.shadowBlur = 15; ctx.shadowColor = "#fff"; ctx.fillText(strNext, startX + w1, 0); ctx.shadowBlur = 0;
-    ctx.fillRect(startX + w1, + 20, w2, 5); 
+    ctx.fillRect(startX + w1, + (dynFontSize/2), w2, 5); 
     ctx.fillStyle = actualColor; ctx.fillText(strRest, startX + w1 + w2, 0);
 
     ctx.restore();
