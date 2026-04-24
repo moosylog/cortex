@@ -10,6 +10,17 @@
 
 *CORTEX is a high-speed typing game designed for split keyboards, helping you train accuracy, speed, and hand coordination under pressure.*
 
+<br>
+
+<a href="https://moosylog.github.io/cortex/" target="_blank">
+  <img 
+    src="https://img.shields.io/badge/🚀%20LAUNCH%20CORTEX-CLICK%20TO%20START-00FF66?style=for-the-badge"
+    alt="Launch CORTEX"
+  />
+</a>
+
+<br><br>
+
 </div>
 
 ---
