@@ -8,7 +8,7 @@
 [![eSports Ready](https://img.shields.io/badge/eSports-Ready-BC13FE?style=for-the-badge)](#)
 [![Moosy Research](https://img.shields.io/badge/Moosy_Research-2026-00E5FF?style=for-the-badge)](#)
 
-> *CORTEX is a high-octane, split-brain typing survival engine designed for competitive ergonomic keyboard players. Built for the 2026 Typing World Championships.*
+> *CORTEX is a high-octane, split-brain typing survival engine designed for competitive ergonomic keyboard players.*
 
 </div>
 
