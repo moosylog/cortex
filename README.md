@@ -8,7 +8,7 @@
 [![eSports Ready](https://img.shields.io/badge/eSports-Ready-BC13FE?style=for-the-badge)](#)
 [![Moosy Research](https://img.shields.io/badge/Moosy_Research-2026-00E5FF?style=for-the-badge)](#)
 
-> *CORTEX is a high-speed typing game designed for split keyboards, helping you train accuracy, speed, and hand coordination under pressure.*
+*CORTEX is a high-speed typing game designed for split keyboards, helping you train accuracy, speed, and hand coordination under pressure.*
 
 </div>
 
