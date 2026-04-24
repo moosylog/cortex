@@ -1,7 +1,7 @@
 <div align="center">
   
 # ⚡ CORTEX
-**WORLD CHAMPIONSHIP EDITION — ROTTERDAM 2026**
+**A neuro-reactive typing survival system**
 
 [![HTML5](https://img.shields.io/badge/HTML5-Strict-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-00FF66?style=for-the-badge)](#)
