@@ -1,4 +1,4 @@
-**🤖 Note: AI-generated**
+**🤖 AI-generated**
 
 <div align="center">
 
