@@ -1,4 +1,4 @@
-> **🤖 Note: The following marketing copy is AI-generated.**
+**🤖 Note: AI-generated**
 
 <div align="center">
 
