@@ -168,7 +168,7 @@
             100% { opacity: 0; transform: translate(-50%, -50%) scale(1.1); filter: blur(10px); }
         }
 
-        /* --- ESPORTS MENU & SCOREBOARD (ORIGINAL RESTORED) --- */
+        /* --- ESPORTS MENU & SCOREBOARD --- */
         #menuOverlay { position: absolute; inset: 0; background: rgba(2, 3, 5, 0.95); backdrop-filter: blur(25px); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow-y: auto; }
         .menu-panel { background: linear-gradient(145deg, rgba(15,20,30,0.9), rgba(5,8,12,0.95)); border: 1px solid rgba(0,240,255,0.3); border-top: 4px solid var(--c-left); padding: 40px 60px; border-radius: 24px; width: 90%; max-width: 750px; box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 100px rgba(0, 229, 255, 0.15); display: flex; flex-direction: column; align-items: stretch; position: relative; }
         .menu-panel h2 { font-size: 4rem; margin: 0 0 20px 0; color: #fff; text-align: center; letter-spacing: 15px; font-weight: 900; text-shadow: 0 0 40px var(--c-left);}
@@ -204,6 +204,7 @@
 
         .cache-reset { color: var(--c-err); text-align: center; font-size: 0.85rem; margin-top: 25px; cursor: pointer; letter-spacing: 2px; font-weight: bold; text-decoration: underline; transition: 0.2s; }
         .cache-reset:hover { color: #fff; text-shadow: 0 0 10px var(--c-err); }
+        .game-tip { color: var(--c-warn); font-size: 0.9rem; text-align: center; margin-top: 15px; font-weight: bold; }
 
         .copyright { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #4a5a70; font-size: 0.85rem; letter-spacing: 1px; font-family: 'Share Tech Mono', monospace; text-transform: uppercase; }
 
@@ -329,6 +330,7 @@
         </div>
        
         <button class="primary" id="startBtn" onclick="startGame()">LOADING DICTIONARY...</button>
+        <div class="game-tip">TIP: Press BACKSPACE or ESC to abort a locked word.</div>
         <div class="cache-reset" onclick="factoryReset()">⚠️ WIPE DATA & RESET CACHE</div>
     </div>
    
@@ -339,7 +341,7 @@
 
 
 /* ==========================================================================
-   1. HARDWARE, LAYOUT & CORE DATA (RESTORED ORIGINAL)
+   1. HARDWARE, LAYOUT & CORE DATA
    ========================================================================== */
 const GEO={go60:[{x:0,y:0.9},{x:1,y:0.9},{x:2,y:0.25},{x:3,y:0},{x:4,y:0.15},{x:5,y:0.25},{x:11,y:0.25},{x:12,y:0.15},{x:13,y:0},{x:14,y:0.25},{x:15,y:0.9},{x:16,y:0.9},{x:0,y:1.9},{x:1,y:1.9},{x:2,y:1.25},{x:3,y:1},{x:4,y:1.15},{x:5,y:1.25},{x:11,y:1.25},{x:12,y:1.15},{x:13,y:1},{x:14,y:1.25},{x:15,y:1.9},{x:16,y:1.9},{x:0,y:2.9},{x:1,y:2.9},{x:2,y:2.25},{x:3,y:2},{x:4,y:2.15},{x:5,y:2.25},{x:11,y:2.25},{x:12,y:2.15},{x:13,y:2},{x:14,y:2.25},{x:15,y:2.9},{x:16,y:2.9},{x:0,y:3.9},{x:1,y:3.9},{x:2,y:3.25},{x:3,y:3},{x:4,y:3.15},{x:5,y:3.25},{x:11,y:3.25},{x:12,y:3.15},{x:13,y:3},{x:14,y:3.25},{x:15,y:3.9},{x:16,y:3.9},{x:2,y:4.25},{x:3,y:4},{x:4,y:4.15},{x:12,y:4.15},{x:13,y:4},{x:14,y:4.25},{x:4,y:4.25,r:15},{x:4,y:4.25,r:30},{x:4,y:4.25,r:45},{x:12,y:4.25,r:-45},{x:12,y:4.25,r:-30},{x:12,y:4.25,r:-15}],glove80:[{x:0,y:0.5},{x:1,y:0.5},{x:2,y:0},{x:3,y:0},{x:4,y:0},{x:13,y:0},{x:14,y:0},{x:15,y:0},{x:16,y:0.5},{x:17,y:0.5},{x:0,y:1.5},{x:1,y:1.5},{x:2,y:1},{x:3,y:1},{x:4,y:1},{x:5,y:1},{x:12,y:1},{x:13,y:1},{x:14,y:1},{x:15,y:1},{x:16,y:1.5},{x:17,y:1.5},{x:0,y:2.5},{x:1,y:2.5},{x:2,y:2},{x:3,y:2},{x:4,y:2},{x:5,y:2},{x:12,y:2},{x:13,y:2},{x:14,y:2},{x:15,y:2},{x:16,y:2.5},{x:17,y:2.5},{x:0,y:3.5},{x:1,y:3.5},{x:2,y:3},{x:3,y:3},{x:4,y:3},{x:5,y:3},{x:12,y:3},{x:13,y:3},{x:14,y:3},{x:15,y:3},{x:16,y:3.5},{x:17,y:3.5},{x:0,y:4.5},{x:1,y:4.5},{x:2,y:4},{x:3,y:4},{x:4,y:4},{x:5,y:4},{x:6.4,y:4,r:20},{x:7.8,y:3.3,r:30},{x:10.1,y:1.5,r:45},{x:7,y:1.5,r:-45},{x:9.3,y:3.3,r:-30},{x:10.7,y:4,r:-20},{x:12,y:4},{x:13,y:4},{x:14,y:4},{x:15,y:4},{x:16,y:4.5},{x:17,y:4.5},{x:0,y:5.5},{x:1,y:5.5},{x:2,y:5},{x:3,y:5},{x:4,y:5},{x:5.3,y:5.4,r:15},{x:6.6,y:5,r:25},{x:9,y:3.2,r:45},{x:8,y:3.2,r:-45},{x:10.4,y:5,r:-25},{x:11.7,y:5.4,r:-15},{x:13,y:5},{x:14,y:5},{x:15,y:5},{x:16,y:5.5},{x:17,y:5.5}],corne:[{x:0,y:0.375},{x:1,y:0.375},{x:2,y:0.125},{x:3,y:0},{x:4,y:0.125},{x:5,y:0.25},{x:9,y:0.25},{x:10,y:0.125},{x:11,y:0},{x:12,y:0.125},{x:13,y:0.375},{x:14,y:0.375},{x:0,y:1.375},{x:1,y:1.375},{x:2,y:1.125},{x:3,y:1},{x:4,y:1.125},{x:5,y:1.25},{x:9,y:1.25},{x:10,y:1.125},{x:11,y:1},{x:12,y:1.125},{x:13,y:1.375},{x:14,y:1.375},{x:0,y:2.375},{x:1,y:2.375},{x:2,y:2.125},{x:3,y:2},{x:4,y:2.125},{x:5,y:2.25},{x:9,y:2.25},{x:10,y:2.125},{x:11,y:2},{x:12,y:2.125},{x:13,y:2.375},{x:14,y:2.375},{x:3.5,y:3.158,r:1},{x:4.6,y:3.305,r:1},{x:5.77,y:3.255,r:1},{x:8.23,y:3.255,r:1},{x:9.4,y:3.305,r:1},{x:10.5,y:3.158,r:1}],voyager:[{x:0,y:0.8},{x:1,y:0.8},{x:2,y:0.6},{x:3,y:0.4},{x:4,y:0.7},{x:5,y:0.9},{x:9.5,y:0.9},{x:10.5,y:0.7},{x:11.5,y:0.4},{x:12.5,y:0.6},{x:13.5,y:0.8},{x:14.5,y:0.8},{x:0,y:1.8},{x:1,y:1.8},{x:2,y:1.6},{x:3,y:1.4},{x:4,y:1.7},{x:5,y:1.9},{x:9.5,y:1.9},{x:10.5,y:1.7},{x:11.5,y:1.4},{x:12.5,y:1.6},{x:13.5,y:1.8},{x:14.5,y:1.8},{x:0,y:2.8},{x:1,y:2.8},{x:2,y:2.6},{x:3,y:2.4},{x:4,y:2.7},{x:5,y:2.9},{x:9.5,y:2.9},{x:10.5,y:2.7},{x:11.5,y:2.4},{x:12.5,y:2.6},{x:13.5,y:2.8},{x:14.5,y:2.8},{x:0,y:3.8},{x:1,y:3.8},{x:2,y:3.6},{x:3,y:3.4},{x:4,y:3.7},{x:5,y:3.9},{x:9.5,y:3.9},{x:10.5,y:3.7},{x:11.5,y:3.4},{x:12.5,y:3.6},{x:13.5,y:3.8},{x:14.5,y:3.8},{x:3.3,y:4.3,r:1},{x:4.3,y:4.3,r:1},{x:10.2,y:4.3,r:1},{x:11.2,y:4.3,r:1}],ansi60:[{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:3,y:0},{x:4,y:0},{x:5,y:0},{x:6,y:0},{x:7,y:0},{x:8,y:0},{x:9,y:0},{x:10,y:0},{x:11,y:0},{x:12,y:0},{x:13,y:0},{x:0,y:1},{x:1.5,y:1},{x:2.5,y:1},{x:3.5,y:1},{x:4.5,y:1},{x:5.5,y:1},{x:6.5,y:1},{x:7.5,y:1},{x:8.5,y:1},{x:9.5,y:1},{x:10.5,y:1},{x:11.5,y:1},{x:12.5,y:1},{x:13.5,y:1},{x:0,y:2},{x:1.75,y:2},{x:2.75,y:2},{x:3.75,y:2},{x:4.75,y:2},{x:5.75,y:2},{x:6.75,y:2},{x:7.75,y:2},{x:8.75,y:2},{x:9.75,y:2},{x:10.75,y:2},{x:11.75,y:2},{x:12.75,y:2},{x:0,y:3},{x:2.25,y:3},{x:3.25,y:3},{x:4.25,y:3},{x:5.25,y:3},{x:6.25,y:3},{x:7.25,y:3},{x:8.25,y:3},{x:9.25,y:3},{x:10.25,y:3},{x:11.25,y:3},{x:12.25,y:3},{x:0,y:4},{x:1.25,y:4},{x:2.5,y:4},{x:3.75,y:4,r:1},{x:10,y:4},{x:11.25,y:4},{x:12.5,y:4},{x:13.75,y:4}]};
 const TEMPLATES={go60:"EQUAL, N1, N2, N3, N4, N5, N6, N7, N8, N9, N0, MINUS, TAB, Q, W, E, R, T, Y, U, I, O, P, BSLH, ESC, A, S, D, F, G, H, J, K, L, SEMI, SQT, MAGIC, Z, X, C, V, B, N, M, COMMA, DOT, FSLH, MO1, GRAVE, DEL, BSPC, LGUI, LBKT, RBKT, MO2, LSHFT, LCTRL, LALT, SPC, RET, SCROLL, MOVE",glove80:"F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, EQUAL, N1, N2, N3, N4, N5, N6, N7, N8, N9, N0, MINUS, TAB, Q, W, E, R, T, Y, U, I, O, P, BSLH, ESC, A, S, D, F, G, H, J, K, L, SEMI, SQT, GRAVE, Z, X, C, V, B, LSHFT, LCTRL, LOWER, LGUI, RCTRL, RSHFT, N, M, COMMA, DOT, FSLH, PG_UP, MAGIC, HOME, END, LEFT, RIGHT, BSPC, DEL, LALT, RALT, RET, SPC, UP, DOWN, LBKT, RBKT, PG_DN",corne:"TAB, Q, W, E, R, T, Y, U, I, O, P, BSPC, LCTRL, A, S, D, F, G, H, J, K, L, SEMI, SQT, LSHFT, Z, X, C, V, B, N, M, COMMA, DOT, FSLH, ESC, LGUI, LOWER, SPC, RET, RAISE, RALT",voyager:"EQUAL, N1, N2, N3, N4, N5, N6, N7, N8, N9, N0, MINUS, TAB, Q, W, E, R, T, Y, U, I, O, P, BSLH, CAPS, A, S, D, F, G, H, J, K, L, SEMI, SQT, LSHFT, Z, X, C, V, B, N, M, COMMA, DOT, FSLH, RSHFT, SPC, BSPC, RET, SPC",ansi60:"ESC,N1,N2,N3,N4,N5,N6,N7,N8,N9,N0,MINUS,EQUAL,BSPC,TAB,Q,W,E,R,T,Y,U,I,O,P,LBKT,RBKT,BSLH,CAPS,A,S,D,F,G,H,J,K,L,SEMI,SQT,RET,LSHFT,Z,X,C,V,B,N,M,COMMA,DOT,FSLH,RSHFT,LCTRL,LGUI,LALT,SPC,RALT,RGUI,MENU,RCTRL"};
@@ -356,12 +358,13 @@ let highScores = [];
 let currentLevel = 1, levelTimer = 0; const LEVEL_DURATION = 45000;
 let isTransitioning = false;
 
+// --- STRICT GLOBAL LOCK VARIABLES ---
+let globalTarget = null;
+let globalTargetIsLeft = false;
+
 // --- Syllable Generation Variables ---
 const VOWELS = ['a','e','i','o','u','y'];
 let leftVowels = [], leftCons = [], rightVowels = [], rightCons = [], recentLeft = [], recentRight = [];
-
-// --- Target Lock Variables ---
-let activeTargetL = null, activeTargetR = null;
 
 // Cache DOM elements
 const logFeed = document.getElementById('uplink-feed');
@@ -390,7 +393,7 @@ window.onload = async () => {
     btn.disabled = false;
 };
 
-// --- DATA PERSISTENCE & MENUS (RESTORED) ---
+// --- DATA PERSISTENCE & MENUS ---
 function renderScoreboard() {
     const list = document.getElementById('highScoreList');
     list.innerHTML = '';
@@ -480,6 +483,7 @@ function logKeystroke(char, type) {
     const entry = document.createElement('div');
     entry.className = `log-entry ${type}`;
     let label = type === 'hit' ? 'HIT' : (type === 'syn' ? 'LINK' : (type === 'gold' ? 'FLAWLESS' : 'ERR'));
+    if (char === 'ABRT') label = 'ABORT';
     entry.innerHTML = `<span class="log-char">${char === ' ' ? 'SPC' : char}</span><span>${label}</span>`;
     logFeed.appendChild(entry);
 }
@@ -493,7 +497,7 @@ function pulseLabel(isLeft) {
 
 function stopGame() {
     gameActive = false; synergyActive = false; synergyPending = false;
-    activeTargetL = null; activeTargetR = null;
+    globalTarget = null;
     document.getElementById('synergy-overlay').style.display = 'none';
     document.getElementById('menuTitle').innerText = "SYSTEM OFF";
     document.body.classList.remove('flow-state', 'level-up');
@@ -642,70 +646,108 @@ function playTone(isLeft, comboTier = 0) {
     if (!audioCtx) return; const t = audioCtx.currentTime;
     const osc = audioCtx.createOscillator(); const env = audioCtx.createGain();
     let basePitch = isLeft ? 350 : 450;
-   
+    
     // Harmonic scaling instead of linear
-    let pitch = basePitch * Math.pow(1.059463, Math.min(comboTier, 24));
-   
-    osc.type = 'sine'; osc.frequency.setValueAtTime(pitch, t); osc.frequency.exponentialRampToValueAtTime(pitch * 0.2, t + 0.03);
-   
-    env.gain.setValueAtTime(0, t); env.gain.linearRampToValueAtTime(0.6, t + 0.005); env.gain.exponentialRampToValueAtTime(0.001, t + 0.04);
+    let pitch = basePitch * Math.pow(1.059463, Math.min(comboTier, 24)); 
+    
+    osc.type = 'sine'; 
+    osc.frequency.setValueAtTime(pitch, t); 
+    osc.frequency.exponentialRampToValueAtTime(pitch * 0.2, t + 0.03);
+    
+    // LOWERED VOLUME: Peak drops from 0.6 to 0.15
+    env.gain.setValueAtTime(0, t); 
+    env.gain.linearRampToValueAtTime(0.15, t + 0.005); 
+    env.gain.exponentialRampToValueAtTime(0.001, t + 0.04); 
 
     const clickOsc = audioCtx.createOscillator(); const clickEnv = audioCtx.createGain();
-    clickOsc.type = 'square'; clickOsc.frequency.setValueAtTime(isLeft ? 2000 : 3000, t);
-   
-    clickEnv.gain.setValueAtTime(0.1, t); clickEnv.gain.exponentialRampToValueAtTime(0.001, t + 0.015);
+    clickOsc.type = 'square'; 
+    clickOsc.frequency.setValueAtTime(isLeft ? 2000 : 3000, t);
+    
+    // LOWERED VOLUME: Click peak drops from 0.1 to 0.03
+    clickEnv.gain.setValueAtTime(0.03, t); 
+    clickEnv.gain.exponentialRampToValueAtTime(0.001, t + 0.015);
 
-    osc.connect(env); env.connect(masterGain); clickOsc.connect(clickEnv); clickEnv.connect(masterGain);
-   
-    osc.start(t); osc.stop(t + 0.05); clickOsc.start(t); clickOsc.stop(t + 0.02);
+    osc.connect(env); env.connect(masterGain); 
+    clickOsc.connect(clickEnv); clickEnv.connect(masterGain);
+    
+    osc.start(t); osc.stop(t + 0.05); 
+    clickOsc.start(t); clickOsc.stop(t + 0.02);
 }
 
-// Euphoric Level Up Chime (C Major 7 Arpeggio)
+// Euphoric Level Up Chime
+// Euphoric Level Up Chime
 function playLevelClearTone() {
     if (!audioCtx) return; const t = audioCtx.currentTime;
-    const freqs = [523.25, 659.25, 783.99, 987.77, 1046.50]; // C5, E5, G5, B5, C6
+    const freqs = [523.25, 659.25, 783.99, 987.77, 1046.50];
     freqs.forEach((freq, i) => {
         const osc = audioCtx.createOscillator(); const env = audioCtx.createGain();
         osc.type = 'sine'; osc.frequency.setValueAtTime(freq, t + i*0.08);
-        env.gain.setValueAtTime(0, t + i*0.08); env.gain.linearRampToValueAtTime(0.4, t + i*0.08 + 0.02); env.gain.exponentialRampToValueAtTime(0.001, t + i*0.08 + 1.0);
+        
+        // LOWERED VOLUME: Peak drops from 0.4 to 0.1
+        env.gain.setValueAtTime(0, t + i*0.08); 
+        env.gain.linearRampToValueAtTime(0.1, t + i*0.08 + 0.02); 
+        env.gain.exponentialRampToValueAtTime(0.001, t + i*0.08 + 1.0);
+        
         osc.connect(env); env.connect(masterGain);
         osc.start(t + i*0.08); osc.stop(t + i*0.08 + 1.1);
     });
 }
 
-// Smooth Synergy Charge (Shepard-like Riser)
+// Smooth Synergy Charge
+// A soft, quick, breathing chime (No more anxiety riser)
 function playSynergyChargeRiser() {
     if (!audioCtx) return; const t = audioCtx.currentTime;
     const osc = audioCtx.createOscillator(); const env = audioCtx.createGain();
-    osc.type = 'sine'; osc.frequency.setValueAtTime(200, t); osc.frequency.exponentialRampToValueAtTime(1200, t + 1.5);
-    env.gain.setValueAtTime(0, t); env.gain.linearRampToValueAtTime(0.5, t + 0.5); env.gain.linearRampToValueAtTime(0, t + 1.5);
-    osc.connect(env); env.connect(masterGain); osc.start(t); osc.stop(t + 1.5);
+    
+    osc.type = 'sine'; 
+    osc.frequency.setValueAtTime(400, t); 
+    osc.frequency.exponentialRampToValueAtTime(600, t + 0.6);
+    
+    env.gain.setValueAtTime(0, t); 
+    env.gain.linearRampToValueAtTime(0.15, t + 0.3); // Much quieter
+    env.gain.linearRampToValueAtTime(0, t + 0.6); // Shorter duration
+    
+    osc.connect(env); env.connect(masterGain); 
+    osc.start(t); osc.stop(t + 0.6);
 }
 
 // Massive Harmonic Boom for Synergy Clear
+// A soft, happy, expanding Major chord for completing the Flow State word
 function playSynergyClearTone() {
-    if (!audioCtx) return; const t = audioCtx.currentTime;
-    const osc = audioCtx.createOscillator(); const env = audioCtx.createGain();
-    osc.type = 'triangle'; osc.frequency.setValueAtTime(100, t); osc.frequency.exponentialRampToValueAtTime(20, t + 1.0);
-    env.gain.setValueAtTime(1.0, t); env.gain.exponentialRampToValueAtTime(0.001, t + 1.0);
-   
-    const noise = audioCtx.createBufferSource();
-    const bufferSize = audioCtx.sampleRate * 1.0; const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0); for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-    noise.buffer = buffer;
-   
-    const filter = audioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.setValueAtTime(4000, t); filter.frequency.exponentialRampToValueAtTime(100, t + 0.5);
-    const noiseEnv = audioCtx.createGain(); noiseEnv.gain.setValueAtTime(0.5, t); noiseEnv.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
-
-    osc.connect(env); env.connect(masterGain); noise.connect(filter); filter.connect(noiseEnv); noiseEnv.connect(masterGain);
-    osc.start(t); noise.start(t); osc.stop(t+1.0);
+    if (!audioCtx) return; 
+    const t = audioCtx.currentTime;
+    
+    // A bright C Major 7 chord (C5, E5, G5, B5)
+    const freqs = [523.25, 659.25, 783.99, 987.77]; 
+    
+    freqs.forEach((freq, index) => {
+        const osc = audioCtx.createOscillator(); 
+        const env = audioCtx.createGain();
+        
+        // Triangle wave for a smooth, retro-arcade reward sound (not harsh)
+        osc.type = 'triangle'; 
+        
+        // Stagger the notes by 80ms for a satisfying upward sweep
+        let startTime = t + (index * 0.08);
+        osc.frequency.setValueAtTime(freq, startTime);
+        
+        // Very soft volume (0.05 peak) so it is pleasant and relaxing
+        env.gain.setValueAtTime(0, startTime);
+        env.gain.linearRampToValueAtTime(0.05, startTime + 0.05);
+        env.gain.exponentialRampToValueAtTime(0.001, startTime + 0.6); 
+        
+        osc.connect(env); 
+        env.connect(masterGain);
+        
+        osc.start(startTime); 
+        osc.stop(startTime + 0.7);
+    });
 }
 
-// Milestone Chime (10x, 20x, 30x)
 function playMilestoneTone() {
     if (!audioCtx) return; const t = audioCtx.currentTime;
     const osc = audioCtx.createOscillator(); const env = audioCtx.createGain();
-    osc.type = 'square'; osc.frequency.setValueAtTime(880, t); osc.frequency.setValueAtTime(1108.73, t + 0.1); // A5 -> C#6
+    osc.type = 'square'; osc.frequency.setValueAtTime(880, t); osc.frequency.setValueAtTime(1108.73, t + 0.1);
     env.gain.setValueAtTime(0, t); env.gain.linearRampToValueAtTime(0.3, t + 0.05); env.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
     osc.connect(env); env.connect(masterGain); osc.start(t); osc.stop(t+0.5);
 }
@@ -728,18 +770,24 @@ function playMiss() {
     osc1.connect(filter); osc2.connect(filter); filter.connect(env); env.connect(audioCtx.destination);
     osc1.start(t); osc2.start(t); osc1.stop(t + 0.15); osc2.stop(t + 0.15);
    
-    // VISCERAL DAMAGE Shake (Only on actual miss/damage)
     document.body.classList.remove('damage-flash', 'glitch'); void document.body.offsetWidth;
     document.body.classList.add('damage-flash', 'glitch'); setTimeout(() => document.body.classList.remove('damage-flash', 'glitch'), 300);
 }
 
+// A soft, muted bell notification
 function playSurpriseTone() {
     if (!audioCtx) return; const t = audioCtx.currentTime;
-    const osc1 = audioCtx.createOscillator(); const osc2 = audioCtx.createOscillator(); const env = audioCtx.createGain();
-    osc1.type = 'sine'; osc1.frequency.setValueAtTime(1046.50, t); osc2.type = 'sine'; osc2.frequency.setValueAtTime(1318.51, t);
-    env.gain.setValueAtTime(0, t); env.gain.linearRampToValueAtTime(0.3, t + 0.02); env.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
-    osc1.connect(env); osc2.connect(env); env.connect(masterGain);
-    osc1.start(t); osc2.start(t); osc1.stop(t + 0.35); osc2.stop(t + 0.35);
+    const osc1 = audioCtx.createOscillator(); const env = audioCtx.createGain();
+    
+    osc1.type = 'sine'; 
+    osc1.frequency.setValueAtTime(523.25, t); // Dropped down an octave
+    
+    env.gain.setValueAtTime(0, t); 
+    env.gain.linearRampToValueAtTime(0.08, t + 0.02); // Very low volume
+    env.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+    
+    osc1.connect(env); env.connect(masterGain);
+    osc1.start(t); osc1.stop(t + 0.35);
 }
 
 function playEMP() {
@@ -760,7 +808,7 @@ function playEMP() {
 }
 
 /* ==========================================================================
-   3. GAME ENGINE, LEVEL SPRINT, RESTORED ENEMIES & SYNERGY LOGIC
+   3. GAME ENGINE, LEVEL SPRINT & STRICT GLOBAL LOCK
    ========================================================================== */
 const canvasL = document.getElementById('canvas-left'); const ctxL = canvasL.getContext('2d');
 const canvasR = document.getElementById('canvas-right'); const ctxR = canvasR.getContext('2d');
@@ -778,7 +826,6 @@ function updateComboMeter() {
     comboMeter.classList.toggle('active', combo > 4);
     comboVal.innerText = `${combo}x`;
    
-    // Euphoric State Triggers
     if (combo > 0 && combo % 10 === 0) {
         playMilestoneTone();
         comboMeter.classList.remove('milestone'); void comboMeter.offsetWidth; comboMeter.classList.add('milestone');
@@ -808,11 +855,7 @@ function punishThreat(isDamage = false) {
 function generateSyllable(isLeft, codeLen) {
     let vowels = isLeft ? leftVowels : rightVowels; let cons = isLeft ? leftCons : rightCons;
     let pool = isLeft ? leftPool : rightPool;
-
-    if (vowels.length === 0 || cons.length === 0) {
-        let str = ""; for(let i=0; i<codeLen; i++) str += pool[Math.floor(Math.random()*pool.length)]; return str;
-    }
-
+    if (vowels.length === 0 || cons.length === 0) { let str = ""; for(let i=0; i<codeLen; i++) str += pool[Math.floor(Math.random()*pool.length)]; return str; }
     let word = "";
     if (codeLen === 1) word = pool[Math.floor(Math.random()*pool.length)];
     else if (codeLen === 2) word = Math.random() < 0.5 ? cons[Math.floor(Math.random()*cons.length)] + vowels[Math.floor(Math.random()*vowels.length)] : vowels[Math.floor(Math.random()*vowels.length)] + cons[Math.floor(Math.random()*cons.length)];
@@ -826,7 +869,6 @@ function generateSyllable(isLeft, codeLen) {
     return word;
 }
 
-// RESTORED: Full enemy variants logic
 function spawnEnemy(isLeft) {
     let rand = Math.random();
     let isSurprise = rand < 0.08, isWeaver = rand >= 0.08 && rand < 0.16, isPulse = rand >= 0.16 && rand < 0.24, isGhost = rand >= 0.24 && rand < 0.32, isWarp = rand >= 0.32 && rand < 0.40;
@@ -855,17 +897,12 @@ function spawnEnemy(isLeft) {
     if (!code) code = generateSyllable(isLeft, codeLen);
 
     recent.push(code); if (recent.length > 15) recent.shift();
-   
     let speedMult = 1.0; if (isSurprise) speedMult = 2.5; if (isPulse) speedMult = 0.6; if (currentLevel === 1) speedMult *= 0.65;
    
-    let enemyBase = {
-        code: code, typed: 0, mistakes: 0,
-        isSurprise, isWeaver, isPulse, isGhost, isWarp, bounced: false
-    };
+    let enemyBase = { code: code, typed: 0, mistakes: 0, isSurprise, isWeaver, isPulse, isGhost, isWarp, bounced: false };
 
-    if (isLeft) {
-        leftEnemies.push({ ...enemyBase, angle: Math.random() * Math.PI * 2, dist: Math.min(canvasL.width, canvasL.height)/2, speed: ((isSurprise ? 25 : 12) + (dynamicThreat * 2.5)) * speedMult });
-    } else {
+    if (isLeft) leftEnemies.push({ ...enemyBase, angle: Math.random() * Math.PI * 2, dist: Math.min(canvasL.width, canvasL.height)/2, speed: ((isSurprise ? 25 : 12) + (dynamicThreat * 2.5)) * speedMult });
+    else {
         let margin = 60;
         rightEnemies.push({ ...enemyBase, x: margin + Math.random() * (canvasR.width - margin*2), y: margin + Math.random() * (canvasR.height - margin*2), vx: (Math.random() - 0.5) * ((isSurprise ? 150 : 60) + dynamicThreat * 15) * speedMult, vy: (Math.random() - 0.5) * ((isSurprise ? 150 : 60) + dynamicThreat * 15) * speedMult, rot: 0, rotSpeed: (Math.random() - 0.5) * 5, life: 100 });
     }
@@ -883,7 +920,10 @@ function startGame() {
     score = 0; hull = 100; dynamicThreat = 1.0; synergyCharge = 0; synergyActive = false; synergyPending = false;
     combo = 0; hitStop = 0; currentLevel = 1; levelTimer = LEVEL_DURATION; isTransitioning = false;
    
-    activeTargetL = null; activeTargetR = null;
+    // --- RESET GLOBAL LOCK ---
+    globalTarget = null;
+    globalTargetIsLeft = false;
+
     leftEnemies = []; rightEnemies = []; particles = []; lasers = []; shockwaves = []; floatingTexts = [];
     clearTimeout(synergyTimeoutId); logFeed.innerHTML = '';
    
@@ -905,14 +945,9 @@ function startGame() {
     gameActive = true; lastTime = performance.now(); frameId = requestAnimationFrame(gameLoop);
 }
 
-// ----------------------------------------------------
-// POSITIVE REINFORCEMENT & SYNERGY
-// ----------------------------------------------------
 function startSynergyCountdown() {
     if (synergyPending || synergyActive || isTransitioning) return;
-    synergyPending = true;
-    playSynergyChargeRiser();
-   
+    synergyPending = true; playSynergyChargeRiser();
     document.body.classList.add('flow-state');
     setTimeout(() => {
         synergyPending = false;
@@ -931,9 +966,7 @@ function activateSynergy() {
     document.getElementById('center-console').classList.remove('synergy-ready');
     document.getElementById('synergy-fill').style.width = '0%';
     renderSynergyWord();
-
-    clearTimeout(synergyTimeoutId);
-    synergyTimeoutId = setTimeout(() => { if(synergyActive) failSynergy(); }, 8000);
+    clearTimeout(synergyTimeoutId); synergyTimeoutId = setTimeout(() => { if(synergyActive) failSynergy(); }, 8000);
 }
 
 function renderSynergyWord() {
@@ -947,9 +980,7 @@ function renderSynergyWord() {
 }
 
 function triggerSynergyClear() {
-    playSynergyClearTone();
-    clearTimeout(synergyTimeoutId); hitStop = 150;
-   
+    playSynergyClearTone(); clearTimeout(synergyTimeoutId); hitStop = 150;
     document.body.classList.add('level-up'); setTimeout(() => document.body.classList.remove('level-up'), 1000);
     document.body.classList.remove('flow-state');
 
@@ -963,7 +994,7 @@ function triggerSynergyClear() {
     shockwaves.push({x: canvasL.width/2, y: canvasL.height/2, r: 10, maxR: 2000, life: 1.0, color: 'var(--c-syn)', isLeft: true});
     shockwaves.push({x: canvasR.width/2, y: canvasR.height/2, r: 10, maxR: 2000, life: 1.0, color: 'var(--c-syn)', isLeft: false});
    
-    activeTargetL = null; activeTargetR = null; synergyActive = false; synergyCharge = 0;
+    globalTarget = null; synergyActive = false; synergyCharge = 0;
     document.getElementById('synergy-overlay').style.display = 'none';
 }
 
@@ -974,12 +1005,11 @@ function failSynergy() {
 }
 
 function triggerLevelClear() {
-    isTransitioning = true;
-    playLevelClearTone();
+    isTransitioning = true; playLevelClearTone();
    
     leftEnemies.forEach(e => spawnExplosion(canvasL.width/2 + Math.cos(e.angle)*e.dist, canvasL.height/2 + Math.sin(e.angle)*e.dist, 'var(--c-gold)', true));
     rightEnemies.forEach(e => spawnExplosion(e.x, e.y, 'var(--c-gold)', false));
-    leftEnemies = []; rightEnemies = []; activeTargetL = null; activeTargetR = null;
+    leftEnemies = []; rightEnemies = []; globalTarget = null;
    
     document.body.classList.add('level-up');
    
@@ -1017,12 +1047,10 @@ function spawnWarpDust(x, y, color, isLeft) {
 function gameLoop(time) {
     if(!gameActive) return;
     let dt = time - lastTime; lastTime = time;
-
     if (hitStop > 0) { hitStop -= dt; lastTime = time; frameId = requestAnimationFrame(gameLoop); return; }
 
     let timeScale = synergyActive ? 0.05 : (synergyPending ? 0.2 : 1.0);
     let scaledDt = dt * timeScale;
-
     updateGame(scaledDt, time); drawLeft(scaledDt, time); drawRight(scaledDt, time);
     frameId = requestAnimationFrame(gameLoop);
 }
@@ -1046,7 +1074,7 @@ function updateGame(dt, currentTime) {
     let cxL = canvasL.width / 2, cyL = canvasL.height / 2;
     let leftDanger = false, rightDanger = false;
     let safeZoneX = canvasL.width < 600 ? 200 : 280, safeZoneY = canvasL.height < 500 ? 60 : 75;
-    let ghostThreshold = combo > 20 ? 15 : 25; // Forgiveness based on combo
+    let ghostThreshold = combo > 20 ? 15 : 25;
 
     for(let i=leftEnemies.length-1; i>=0; i--) {
         let e = leftEnemies[i];
@@ -1064,7 +1092,7 @@ function updateGame(dt, currentTime) {
         }
 
         if(e.dist <= 15) {
-            if (e === activeTargetL) activeTargetL = null;
+            if (e === globalTarget) globalTarget = null; // Clear lock if enemy dies
             hull -= 10; punishThreat(true); breakCombo(); spawnExplosion(ex, ey, '#fff', true); leftEnemies.splice(i, 1); playMiss();
             document.body.classList.remove('shake-left'); void document.body.offsetWidth; document.body.classList.add('shake-left');
         }
@@ -1087,7 +1115,7 @@ function updateGame(dt, currentTime) {
         if(e.x < 40 || e.x > canvasR.width-40) e.vx *= -1; if(e.y < 40 || e.y > canvasR.height-40) e.vy *= -1;
         e.life -= 8 * (dt/1000);
         if(e.life <= 0) {
-            if (e === activeTargetR) activeTargetR = null;
+            if (e === globalTarget) globalTarget = null; // Clear lock if enemy dies
             hull -= 5; punishThreat(true); breakCombo(); spawnExplosion(e.x, e.y, '#fff', false); rightEnemies.splice(i, 1); playMiss();
             document.body.classList.remove('shake-right'); void document.body.offsetWidth; document.body.classList.add('shake-right');
         }
@@ -1116,7 +1144,7 @@ function updateGame(dt, currentTime) {
 }
 
 // ----------------------------------------------------
-// CANVAS DRAWING (UI & FX)
+// CANVAS DRAWING
 // ----------------------------------------------------
 function drawTextPill(ctx, code, typed, x, y, colorBase, e, time) {
     let isActive = typed > 0;
@@ -1208,10 +1236,22 @@ function drawRight(dt, time) {
 }
 
 // ----------------------------------------------------
-// INPUT ROUTING & FLAWLESS EXECUTION LOGIC
+// INPUT ROUTING & STRICT GLOBAL LOCK
 // ----------------------------------------------------
 document.addEventListener('keydown', (e) => {
     if(!gameActive || isTransitioning || e.repeat) return;
+   
+    // --- ABORT LOCK MECHANIC ---
+    if ((e.key === 'Backspace' || e.key === 'Escape') && globalTarget) {
+        globalTarget.typed = 0;
+        globalTarget.mistakes = 0; // Give them a clean slate if they aborted
+        globalTarget = null;
+        breakCombo();
+        playMiss();
+        logKeystroke('ABRT', 'miss');
+        return;
+    }
+
     let char = e.key.toLowerCase(); if(e.code === 'Space') char = 'spc';
    
     if (synergyActive) {
@@ -1227,45 +1267,68 @@ document.addEventListener('keydown', (e) => {
     let isLeft = leftPool.includes(char); let isRight = rightPool.includes(char);
     if(!isLeft && !isRight) { punishThreat(); breakCombo(); logKeystroke(char, 'miss'); playMiss(); return; }
 
-    let hit = false; let hitEnemy = null;
+    let hit = false;
+    let hitEnemy = null;
+    let hitIsLeft = false;
 
-    if (isLeft) {
-        if (activeTargetL) { if (activeTargetL.code[activeTargetL.typed] === char) { hitEnemy = activeTargetL; hit = true; } else { activeTargetL.mistakes++; } }
-        else { hitEnemy = leftEnemies.find(en => en.code[0] === char); if (hitEnemy) { activeTargetL = hitEnemy; hit = true; } }
-    } else {
-        if (activeTargetR) { if (activeTargetR.code[activeTargetR.typed] === char) { hitEnemy = activeTargetR; hit = true; } else { activeTargetR.mistakes++; } }
-        else { hitEnemy = rightEnemies.find(en => en.code[0] === char); if (hitEnemy) { activeTargetR = hitEnemy; hit = true; } }
+    // --- STRICT GLOBAL LOCK LOGIC ---
+    if (globalTarget) {
+        let expected = globalTarget.code[globalTarget.typed];
+        if (char === expected) {
+            hitEnemy = globalTarget;
+            hit = true;
+            hitIsLeft = globalTargetIsLeft;
+        } else {
+            globalTarget.mistakes++;
+        }
+    }
+    else {
+        if (isLeft) {
+            hitEnemy = leftEnemies.find(en => en.code[0] === char);
+            if (hitEnemy) hitIsLeft = true;
+        }
+        if (!hitEnemy && isRight) {
+            hitEnemy = rightEnemies.find(en => en.code[0] === char);
+            if (hitEnemy) hitIsLeft = false;
+        }
+
+        if (hitEnemy) {
+            globalTarget = hitEnemy;
+            globalTargetIsLeft = hitIsLeft;
+            hit = true;
+        }
     }
 
     if(hit && hitEnemy) {
         hitEnemy.typed++; combo++; updateComboMeter();
-        playTone(isLeft, combo); playLaserSound(isLeft);
+        playTone(hitIsLeft, combo); playLaserSound(hitIsLeft);
        
-        let ex = isLeft ? canvasL.width/2 + Math.cos(hitEnemy.angle)*hitEnemy.dist : hitEnemy.x;
-        let ey = isLeft ? canvasL.height/2 + Math.sin(hitEnemy.angle)*hitEnemy.dist : hitEnemy.y;
+        let ex = hitIsLeft ? canvasL.width/2 + Math.cos(hitEnemy.angle)*hitEnemy.dist : hitEnemy.x;
+        let ey = hitIsLeft ? canvasL.height/2 + Math.sin(hitEnemy.angle)*hitEnemy.dist : hitEnemy.y;
 
-        if (isLeft) lasers.push({ x1: canvasL.width/2, y1: canvasL.height/2, x2: ex, y2: ey, life: 1.0, isLeft: true });
+        if (hitIsLeft) lasers.push({ x1: canvasL.width/2, y1: canvasL.height/2, x2: ex, y2: ey, life: 1.0, isLeft: true });
         else lasers.push({ x1: canvasR.width/2, y1: canvasR.height, x2: ex, y2: ey, life: 1.0, isLeft: false });
 
         if(hitEnemy.typed === hitEnemy.code.length) {
             hitStop = 40;
            
-            // FLAWLESS EXECUTION REWARD
             let isFlawless = hitEnemy.mistakes === 0 && hitEnemy.code.length > 1;
-            let clr = isLeft ? '#00e5ff' : '#ff0055';
+            let clr = hitIsLeft ? '#00e5ff' : '#ff0055';
             if (hitEnemy.isSurprise) clr = '#ffea00'; if (hitEnemy.isWeaver) clr = '#00ffcc'; if (hitEnemy.isPulse) clr = '#bc13fe';
            
             if (isFlawless) {
-                clr = 'var(--c-gold)'; addScore(150, ex, ey, isLeft); logKeystroke(char, 'gold');
+                clr = 'var(--c-gold)'; addScore(150, ex, ey, hitIsLeft); logKeystroke(char, 'gold');
             } else { logKeystroke(char, 'hit'); }
 
-            spawnExplosion(ex, ey, clr, isLeft);
+            spawnExplosion(ex, ey, clr, hitIsLeft);
            
-            if (isLeft) { leftEnemies.splice(leftEnemies.indexOf(hitEnemy), 1); activeTargetL = null; }
-            else { rightEnemies.splice(rightEnemies.indexOf(hitEnemy), 1); activeTargetR = null; }
+            if (hitIsLeft) leftEnemies.splice(leftEnemies.indexOf(hitEnemy), 1);
+            else rightEnemies.splice(rightEnemies.indexOf(hitEnemy), 1);
+           
+            globalTarget = null; // Target destroyed, unlock
            
             dynamicThreat += 0.05;
-            addScore(hitEnemy.isSurprise ? 250 : 50, ex, ey, isLeft);
+            addScore(hitEnemy.isSurprise ? 250 : 50, ex, ey, hitIsLeft);
            
             if(synergyCharge < 100) {
                 synergyCharge = Math.min(100, synergyCharge + (hitEnemy.isSurprise ? 35 : (hitEnemy.isPulse ? 25 : 15)));
@@ -1275,8 +1338,7 @@ document.addEventListener('keydown', (e) => {
         } else { logKeystroke(char, 'hit'); }
     } else {
         punishThreat(); breakCombo(); playMiss(); logKeystroke(char, 'miss');
-        if (isLeft && activeTargetL) activeTargetL.mistakes++;
-        if (!isLeft && activeTargetR) activeTargetR.mistakes++;
+        if (globalTarget) globalTarget.mistakes++;
     }
 });
 
