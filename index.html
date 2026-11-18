@@ -28,6 +28,7 @@ button:hover{background:#fff}.how{font-size:13px;color:#9ab;line-height:1.7}.how
 #hint{position:absolute;top:44px;left:50%;transform:translateX(-50%);max-width:82%;background:rgba(4,6,12,.94);border:1px solid var(--l);border-radius:12px;padding:10px 18px;text-align:center;z-index:6;opacity:0;transition:opacity .3s;font-size:15px;line-height:1.5;pointer-events:none}
 #hint.tut{pointer-events:auto;cursor:pointer}
 button.alt{background:#0a1a24;color:var(--l);font-size:15px;margin-top:8px;border:1px solid var(--l)}button.alt:hover{background:var(--l);color:#000}
+.up{display:block;margin-top:10px;padding:10px;text-align:center;border:1px dashed var(--y);color:var(--y);border-radius:10px;cursor:pointer;font-size:14px}.up:hover{background:var(--y);color:#000}
 </style></head><body>
 <div id="hud"><div class="brand">CORTEX</div><div>WAVE<b id="hW">1</b></div><div>SCORE<b id="hS">0</b></div><div>BEST<b id="hB" style="color:#ffd700">0</b></div><div>COMBO<b id="hC">0</b></div><div style="color:var(--p)">ALT<b id="hA">0</b></div><div>WPM<b id="hP">0</b></div><div>CITIES<b id="hCi">8</b></div></div>
 <div id="cockpit"><div id="msg"></div><div id="hint"></div>
@@ -36,7 +37,7 @@ button.alt{background:#0a1a24;color:var(--l);font-size:15px;margin-top:8px;borde
 <div id="menu"><div class="panel"><h2>LAST LIGHT</h2><div class="sub">CORTEX &middot; Two hands. Two skies. Eight cities.</div>
 <div id="runBox" style="display:none"><div class="box"><h4>LAST RUN</h4><div id="rep"></div></div></div>
 <div class="box"><h4>HOW TO PLAY</h4><div class="how"><b>Type the letters to blast warheads. Blasts chain. Protect your cities.</b><details style="margin-top:8px"><summary style="cursor:pointer;color:#789">All the rules</summary>Warheads fall toward your cities. <b>Type a warhead&rsquo;s letters</b> to detonate a blast on it. <b>Any warhead caught in a blast explodes too</b>, and each one in the chain is worth more than the last. Let them bunch up, then pop the middle.<br>Left-hand keys defend the left sky, right-hand keys the right. Each hand locks its own target.<br><b>Mistake = your hand jams</b> for 0.7s (that sky is defenceless) and your combo breaks.<br><b>Alternating hands</b> and a high combo make blasts bigger.<br><b>Gold LINK pair:</b> finish one, then the twin on the other screen within 2.6s for a giant <b>RESONANCE</b> blast.<br><b>MIRV</b> splits into more warheads mid-fall. <b>DART</b> is a fast single letter.<br>Clearing a wave pays a bonus per surviving city, and every second wave rebuilds one. Lose all eight and it&rsquo;s over. <b>Cluster bonus:</b> blasting a bunch multiplies chain points, and squads of three converge on purpose, so waiting can pay. <b>Chains of 5+</b> send a shockwave to the other screen.<br><b>Backspace/Esc</b> drops your locks.</details></div></div>
-<div class="box"><h4>YOUR LAYOUT</h4><select id="lay"><option value="qwerty">QWERTY</option><option value="colemak">Colemak</option><option value="colemak_dh">Colemak-DH</option><option value="dvorak">Dvorak</option></select></div>
+<div class="box"><h4>YOUR LAYOUT</h4><select id="lay"><option value="qwerty">QWERTY</option><option value="colemak">Colemak</option><option value="colemak_dh">Colemak-DH</option><option value="dvorak">Dvorak</option></select><canvas id="kb" width="560" height="164" style="width:100%;margin-top:10px"></canvas><label class="up" for="jf">Load layout JSON (MoErgo Go60/Glove80, Corne, Voyager, Ferris/Sweep, or plain rows)</label><input type="file" id="jf" accept=".json" hidden></div>
 <div class="box"><h4>DIFFICULTY</h4><select id="dif"><option value="0">Chill</option><option value="1" selected>Normal</option><option value="2">Hard</option></select></div>
 <div class="box"><h4>TOP 5</h4><div id="top"></div><div class="sub" id="weak" style="margin:8px 0 0"></div></div>
 <button id="go">START &nbsp;[ENTER]</button><button id="tb" class="alt">REPLAY TUTORIAL</button><div class="rs" id="rs">Reset all saved data</div></div></div>
@@ -153,11 +154,31 @@ function end(){run=false;const mins=Math.max(.1,(performance.now()-t0)/60000),ac
 function menuInfo(){$("lay").value=cfg.lay;build();$("go").innerHTML=cfg.tut?"START &nbsp;[ENTER]":"START: TUTORIAL FIRST &nbsp;[ENTER]";
  $("top").innerHTML=cfg.sc.length?cfg.sc.map(s=>`<div class="sc"><span>${s.d} (wave ${s.w})</span><b>${s.s}</b></div>`).join(""):'<div class="sub">No runs yet.</div>';
  const w=Object.keys(cfg.st).filter(c=>cfg.st[c].h+cfg.st[c].m>=5).sort((a,b)=>wk(b)-wk(a)).slice(0,5).map(c=>c.toUpperCase()+" "+Math.round(100*cfg.st[c].h/(cfg.st[c].h+cfg.st[c].m))+"%").join("   ");
- $("weak").textContent=w?"Weakest keys: "+w+" (they appear more often in your runs)":""}
+ $("weak").textContent=w?"Weakest keys: "+w+" (they appear more often in your runs)":"";drawKb()}
 function loop(n){if(!run)return;const dt=Math.min(.05,(n-last)/1000);last=n;t+=dt;try{if(!paused)update(dt);if(run){draw(0);draw(1);hud()}}catch(err){console.error(err);end();return}requestAnimationFrame(loop)}
 $("go").onclick=()=>start(!cfg.tut);$("tb").onclick=()=>start(true);addEventListener("blur",()=>{if(run&&!paused){paused=1;showHint("PAUSED. Press any key to resume.",0)}});$("hint").onclick=()=>{if(tut)endTut()};$("rs").onclick=()=>{if(confirm("Wipe all saved stats and scores?")){try{localStorage.removeItem("cortex7")}catch(e){}location.reload()}};
 $("lay").onchange=()=>{cfg.lay=$("lay").value;save();menuInfo()};
 $("dif").value=cfg.dif??1;$("dif").onchange=()=>{cfg.dif=+$("dif").value;save()};
 addEventListener("keydown",e=>{if(!run&&e.key==="Enter"&&!e.repeat&&$("menu").style.display!=="none"&&!/SELECT|INPUT/.test(document.activeElement.tagName))start(!cfg.tut)});
+function drawKb(){const c=$("kb"),g=c.getContext("2d"),u=52;g.clearRect(0,0,c.width,c.height);g.font="bold 18px ui-monospace,monospace";g.textAlign="center";g.textBaseline="middle";
+ LAY[cfg.lay].forEach((row,r)=>[...row].forEach((ch,col)=>{const x=6+col*u+(col>4?26:0),y=6+r*u,s=cfg.st[ch],ok=/[a-z]/.test(ch);
+  g.fillStyle=!ok?"rgba(255,255,255,.04)":s&&s.h+s.m>=3?`hsla(${120*s.h/(s.h+s.m)},80%,38%,.9)`:col<5?"rgba(0,229,255,.25)":"rgba(255,0,85,.25)";
+  g.beginPath();g.roundRect?g.roundRect(x,y,u-6,u-6,8):g.rect(x,y,u-6,u-6);g.fill();if(ok){g.strokeStyle=col<5?"#0aa":"#a05";g.lineWidth=1;g.stroke();g.fillStyle="#fff";g.fillText(ch.toUpperCase(),x+u/2-3,y+u/2-3)}}))}
+const SPEC={go60:{L:[12,24,36],R:[18,30,42],o:1},glove80:{L:[22,34,46],R:[28,40,58],o:1},corne:{L:[0,12,24],R:[6,18,30],o:1},voyager:{L:[12,24,36],R:[18,30,42],o:1},sweep:{L:[0,10,20],R:[5,15,25],o:0}};
+function kc(o){let s="";(function f(x){if(x==null)return;if(typeof x==="string"){s=x;return}if(Array.isArray(x)){x.length&&f(x[x.length-1]);return}if(typeof x==="object"){if(x.params&&x.params.length)return f(x.params);for(const k of["value","code","key","tap","label","keycode"])if(x[k]!=null){f(x[k]);if(s)return}}})(o);return String(s).toUpperCase().replace(/^&?KP\s+/,"").replace(/^KC_/,"").trim().split(/\s+/).pop()}
+function addCustom(){if(!$("lay").querySelector("option[value=custom]")){const o=document.createElement("option");o.value="custom";o.textContent="Custom (JSON)";$("lay").appendChild(o)}}
+function loadJson(txt){let d;try{d=JSON.parse(txt)}catch(e){return alert("That isn’t valid JSON.")}if(!d||typeof d!=="object")return alert("Unrecognised layout file.");
+ let rows=null,n=0;const plain=d.rows||d.layout||(Array.isArray(d)?d:null);
+ if(plain&&Array.isArray(plain)&&plain.length>=3&&plain.slice(0,3).every(r=>typeof r==="string"||Array.isArray(r))){rows=plain.slice(0,3).map(r=>{const a=[...r].map(c=>/^[a-zA-Z]$/.test(c)?c.toLowerCase():"-");while(a.length<10)a.push("-");return a.slice(0,10)});n=rows.flat().filter(c=>c!=="-").length}
+ else{const L0=d.layers&&d.layers[0],l0=Array.isArray(L0)?L0:L0&&(L0.keys||L0.bindings);if(!l0)return alert("No layers found in this file.");
+  const kb=String(d.keyboard||d.name||"").toLowerCase();let hw=Object.keys(SPEC).find(k=>kb.includes(k))||(kb.includes("crkbd")?"corne":null);
+  if(!hw)hw={60:"go60",80:"glove80",42:"corne",52:"voyager",34:"sweep",36:"sweep"}[l0.length];
+  if(!hw)return alert("Unknown board ("+l0.length+" keys). Supported: Go60, Glove80, Corne 42, Voyager 52, Ferris/Sweep 34-36, or a plain {\"rows\":[3 strings]} file.");
+  const sp=SPEC[hw];rows=[0,1,2].map(()=>Array(10).fill("-"));
+  for(let r=0;r<3;r++)for(let j=0;j<5;j++)[[sp.L[r]+sp.o+j,j],[sp.R[r]+j,5+j]].forEach(([i,c])=>{const k=kc(l0[i]);if(/^[A-Z]$/.test(k)){rows[r][c]=k.toLowerCase();n++}})}
+ const hm=rows[1];if(n<20||hm.slice(0,4).filter(c=>c!=="-").length<2||hm.slice(6).filter(c=>c!=="-").length<2)return alert("Couldn’t read enough letter keys (found "+n+"). Check that layer 0 is your base letter layer.");
+ LAY.custom=rows.map(r=>r.join(""));cfg.custom=LAY.custom;cfg.lay="custom";save();addCustom();menuInfo()}
+$("jf").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>loadJson(r.result);r.readAsText(f);e.target.value=""};
+if(cfg.custom){LAY.custom=cfg.custom;addCustom()}else if(cfg.lay==="custom")cfg.lay="qwerty";
 menuInfo();
 </script></body></html>
